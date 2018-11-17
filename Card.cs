@@ -3,7 +3,7 @@
 public class Card
 {
     private string suit;
-    private char number;
+    private string number;
 
     public string Suit
     {

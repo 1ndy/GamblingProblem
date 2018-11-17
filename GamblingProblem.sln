@@ -5,6 +5,13 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamblingProblem", "GamblingProblem\GamblingProblem.csproj", "{ECA6CF78-D61A-44C7-B435-24B6F06187A6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{329D44E2-A432-4EF8-BA24-212370506A8F}"
+	ProjectSection(SolutionItems) = preProject
+		Card.cs = Card.cs
+		Class1.cs = Class1.cs
+		Deck.cs = Deck.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -28,13 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.playerName = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // playerName
+            // 
+            this.playerName.AutoSize = true;
+            this.playerName.Location = new System.Drawing.Point(31, 13);
+            this.playerName.Name = "playerName";
+            this.playerName.Size = new System.Drawing.Size(46, 17);
+            this.playerName.TabIndex = 0;
+            this.playerName.Text = "label1";
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Green;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Controls.Add(this.playerName);
+            this.Name = "Form1";
+            this.Text = "Poker";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Label playerName;
     }
 }
 
