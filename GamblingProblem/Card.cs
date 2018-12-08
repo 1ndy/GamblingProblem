@@ -14,7 +14,8 @@ namespace GamblingProblem
                 if (suit == "club") return "C";
                 else if (suit == "diamond") return "D";
                 else if (suit == "heart") return "H";
-                else return "S";
+                else if (suit == "spade") return "S";
+                else return suit.ToString();
             }
         }
 
@@ -40,7 +41,7 @@ namespace GamblingProblem
 
         public string getCardPath()
         {
-            return "C:\\Users\\DSU\\source\\repos\\GamblingProblem\\GamblingProblem\\cards\\" + Number + Suit;
+            return "..\\...\\cards\\" + Number + Suit + ".png";
         }
     }
 }

@@ -15,14 +15,14 @@ namespace GamblingProblem
             char[] number = { 'A', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K' };
             for (int i = 0; i < 4; i++)
             {
-                for (int j = 0; j < 52; j++)
+                for (int j = 0; j < 14; j++)
                 {
-                    deck.enqueue(new Card(suits[j], number[i]));
+                    deck.Enqueue(new Card(suits[i], number[j]));
                 }
             }
             shuffle();
-            shuffle();
-            shuffle();
+            //shuffle();
+            //shuffle();
             unshuffledCards = 52;
         }
 
@@ -46,16 +46,17 @@ namespace GamblingProblem
             {
                 System.Write(r[i]);
             }
+            */
             for (int i = 0; i < 52; i++)
             {
                 deck.enqueue(r[i]);
-            }*/
+            }
         }
 
         public Card getCard()
         {
             Card c = deck.Dequeue();
-            deck.Enqueue(c);
+            //deck.Enqueue(c);
             unshuffledCards--;
             return c;
         }
