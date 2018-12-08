@@ -21,6 +21,8 @@ namespace GamblingProblem
                 }
             }
             shuffle();
+            shuffle();
+            shuffle();
            
             unshuffledCards = 52;
         }
@@ -40,11 +42,6 @@ namespace GamblingProblem
                 r[i] = r[j];
                 r[j] = tmp;
             }
-            /*System.Write("New order: ");
-            for (int i = 0; i < 52; i++)
-            {
-                System.Write(r[i]);
-            }*/
             for (int i = 0; i < 52; i++)
             {
                 deck.Enqueue(r[i]);
@@ -54,8 +51,15 @@ namespace GamblingProblem
         public Card getCard()
         {
             Card c = deck.Dequeue();
-            //deck.Enqueue(c);
+            deck.Enqueue(c);
             unshuffledCards--;
+            if(unshuffledCards == 0)
+            {
+                shuffle();
+                shuffle();
+                shuffle();
+                unshuffledCards = 52;
+            }
             return c;
         }
     }

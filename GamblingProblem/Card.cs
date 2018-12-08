@@ -41,7 +41,7 @@ namespace GamblingProblem
 
         public string getCardPath()
         {
-            return "..\\...\\cards\\" + Number + Suit + ".png";
+            return "..\\..\\cards\\" + Number + Suit + ".png";
         }
     }
 }

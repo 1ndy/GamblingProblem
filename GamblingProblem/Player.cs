@@ -14,12 +14,17 @@ namespace GamblingProblem
         }
         public void addMoney(int m)
         {
-            money += m;
+            money += Math.Abs(m);
         }
         public void removeMoney(int m)
         {
-            money -= m;
+            money -= Math.Abs(m);
         }
+        public int getMoney()
+        {
+            return money;
+        }
+
         public void playTurn()
         {
 
