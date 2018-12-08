@@ -1,37 +1,46 @@
 ﻿using System;
 
-public class Card
+namespace GamblingProblem
 {
-    private string suit;
-    private string number;
-
-    public string Suit
+    public class Card
     {
-        get
+        private string suit;
+        private string number;
+
+        public string Suit
         {
-            if (suit == "club") return "Clubs";
-            else if (suit == "diamond") return "Diamonds";
-            else if (suit == "heart") return "Hearts";
-            else if (suit == "spade") return "Spades";
+            get
+            {
+                if (suit == "club") return "Clubs";
+                else if (suit == "diamond") return "Diamonds";
+                else if (suit == "heart") return "Hearts";
+                else if (suit == "spade") return "Spades";
+            }
         }
-    }
 
-    public string Number
-    {
-        get
+        public string Number
         {
-            if (number == 'A') return "Ace";
-            else if (number == 'J') return "Jack";
-            else if (number == 'Q') return "Queen";
-            else if (number == 'K') return "King";
-            else return number.ToString();
+            get
+            {
+                if (number == 'A') return "A";
+                else if (number == 'J') return "J";
+                else if (number == 'Q') return "Q";
+                else if (number == 'K') return "K";
+                else if (number == 'T') return "10";
+                else return number.ToString();
+            }
         }
-    }
 
 
-    public Card(string s, char n)
-    {
-        suit = s;
-        number = n;
+        public Card(string s, char n)
+        {
+            suit = s;
+            number = n;
+        }
+
+        public string getCardPath()
+        {
+            return "C:\\Users\\DSU\\source\\repos\\GamblingProblem\\GamblingProblem\\cards" + number.ToString() + suit;
+        }
     }
 }

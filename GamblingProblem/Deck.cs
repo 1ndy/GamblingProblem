@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic.Queue;
-using System.Collections.Generic.List;
+using System.Collections.Generic;
+//using System.Collections.Generic;
 
 namespace GamblingProblem
 {
@@ -12,17 +12,16 @@ namespace GamblingProblem
         {
             deck = new Queue<Card>();
             string[] suits = { "club", "diamond", "heart", "spade" };
-            char[] number = { 'A', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K' };
+            string[] number = { "A", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
             for (int i = 0; i < 4; i++)
             {
-                for (int j = 0; j < 52; j++)
+                for (int j = 0; j < 14; j++)
                 {
-                    deck.enqueue(new Card(suits[j], number[i]));
+                    deck.Enqueue(new Card(suits[i], number[j]));
                 }
             }
             shuffle();
-            shuffle();
-            shuffle();
+           
             unshuffledCards = 52;
         }
 
@@ -32,7 +31,7 @@ namespace GamblingProblem
             Random rng = new Random();
             for (int i = 0; i < 52; i++)
             {
-                r[i] = deck.dequeue();
+                r[i] = deck.Dequeue();
             }
             for (int i = 0; i < 50; i++)
             {

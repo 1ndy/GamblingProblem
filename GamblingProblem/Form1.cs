@@ -15,11 +15,12 @@ namespace GamblingProblem
         public Form1()
         {
             InitializeComponent();
+            Deck d = new Deck();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

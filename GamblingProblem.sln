@@ -8,8 +8,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{329D44E2-A432-4EF8-BA24-212370506A8F}"
 	ProjectSection(SolutionItems) = preProject
 		Card.cs = Card.cs
-		Class1.cs = Class1.cs
+		ComputerPlayer.cs = ComputerPlayer.cs
 		Deck.cs = Deck.cs
+		Hand.cs = Hand.cs
+		HumanPlayer.cs = HumanPlayer.cs
+		Player.cs = Player.cs
 	EndProjectSection
 EndProject
 Global
