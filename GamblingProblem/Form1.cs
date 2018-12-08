@@ -81,7 +81,7 @@ namespace GamblingProblem
                 hp.hand.addCard(c);
                 cp.hand.addCard(b);
                 humanCardPictures[i].ImageLocation = c.getCardPath();
-                computerCardPictures[i].ImageLocation = "..\\..\\cards\\gray_back.png";
+                computerCardPictures[i].ImageLocation = b.getCardPath();//"..\\..\\cards\\gray_back.png";
             }
             statusLabel.Text = "Click on cards to exchange";
         }
@@ -188,7 +188,8 @@ namespace GamblingProblem
                 betTextbox.Visible = true;
 
                 //computer stuff
-                cp.exchangeHand();
+                cp.playTurn(d);
+                showComputerCards();
                 statusLabel.Text = "Enter an amout to bet (0 to fold)";
             }
         }
@@ -258,8 +259,31 @@ namespace GamblingProblem
         {
             showComputerCards();
             callButton.Visible = false;
-            humanWonButton.Visible = true;
-            computerWonButton.Visible = true;
+            //humanWonButton.Visible = true;
+            //computerWonButton.Visible = true;
+            statusLabel.Text = "Human: " + hp.hand.rank() + " Computer: " + cp.hand.rank();
+            if(cp.hand > hp.hand)
+            {
+                hp.addMoney(pool);
+                pool = 0;
+                updatePlayerMoney();
+                humanWonButton.Visible = false;
+                computerWonButton.Visible = false;
+                playAgainButton.Visible = true;
+            }
+            else if(cp.hand < hp.hand)
+            {
+                cp.addMoney(pool);
+                pool = 0;
+                updateComputerMoney();
+                humanWonButton.Visible = false;
+                computerWonButton.Visible = false;
+                playAgainButton.Visible = true;
+            }
+            else
+            {
+                //statusLabel.Text = "Tie";
+            }
         }
 
         private void humanWonButton_Click(object sender, EventArgs e)

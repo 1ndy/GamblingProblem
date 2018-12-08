@@ -34,11 +34,6 @@ namespace GamblingProblem
         {
             return money;
         }
-
-        public void playTurn()
-        {
-
-        }
         public void fold()
         {
 

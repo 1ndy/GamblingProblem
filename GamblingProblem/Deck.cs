@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GamblingProblem
 {
-    internal class Deck
+    public class Deck
     {
         private Queue<Card> deck;
         int unshuffledCards;
