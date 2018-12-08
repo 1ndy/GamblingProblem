@@ -16,9 +16,19 @@ namespace GamblingProblem
         {
             money += Math.Abs(m);
         }
-        public void removeMoney(int m)
+        public int removeMoney(int m)
         {
-            money -= Math.Abs(m);
+            int s = money;
+            if (m <= money)
+            {
+                money -= Math.Abs(m);
+                return m;
+            }
+            else
+            {
+                money = 0;
+                return s;
+            }
         }
         public int getMoney()
         {

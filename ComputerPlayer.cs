@@ -8,5 +8,10 @@ namespace ComputerPlayer
         {
             money = 100;
         }
+
+        public void playTurn()
+        {
+
+        }
     }
 }

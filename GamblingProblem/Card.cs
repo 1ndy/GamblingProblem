@@ -43,5 +43,14 @@ namespace GamblingProblem
         {
             return "..\\..\\cards\\" + Number + Suit + ".png";
         }
+
+        public static bool operator ==(Card a, Card b)
+        {
+            return a.Number == b.Number && a.Suit == b.Suit;
+        }
+        public static bool operator !=(Card a, Card b)
+        {
+            return !(a == b);
+        }
     }
 }

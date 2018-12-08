@@ -71,6 +71,7 @@ namespace GamblingProblem
             hasExchanged = false;
             playAgainButton.Visible = false;
             exchangeButton.Visible = true;
+            newComputerPlayerButton.Visible = false;
             int i;
 
             for (i = 0; i < 5; i++)
@@ -204,20 +205,33 @@ namespace GamblingProblem
                 betButton.Visible = false;
                 betTextbox.Visible = false;
             }
-            else
+            else if(amount > hp.getMoney() || amount > cp.getMoney())
             {
-                hp.removeMoney(amount);
-                pool += Math.Abs(amount);
+                statusLabel.Text = "One player can not bet that much.";
+            }
+            else
+            {  
+                pool += hp.removeMoney(amount);
                 updatePlayerMoney();
                 betButton.Visible = false;
                 betTextbox.Visible = false;
 
                 //computer stuff
-                int r = rng.Next(1, 10);
+                int r;
+                if(pool * 2 > pool + cp.getMoney())
+                    r = rng.Next(1, 20);
+                else if (pool == pool + cp.getMoney())
+                    r = rng.Next(1, 30);
+                else
+                    r = rng.Next(1,10);
+                int p = rng.Next(1, 10);
+                if(p <= 4)
+                {
+                    r /= 3;
+                }
                 if (r < 8)
                 {
-                    cp.removeMoney(amount);
-                    pool += amount;
+                    pool += cp.removeMoney(amount);
                     statusLabel.Text = "Computer has matched";
                     callButton.Visible = true;
                     updateComputerMoney();
@@ -278,9 +292,16 @@ namespace GamblingProblem
             }
             else
             {
-                statusLabel.Text = "A pleyer has lost. Game over";
+                statusLabel.Text = "A player has lost. Game over";
                 playAgainButton.Visible = false;
+                newComputerPlayerButton.Visible = true;
             }
+        }
+
+        private void newComputerPlayerButton_Click(object sender, EventArgs e)
+        {
+            cp = new ComputerPlayer();
+            playHand();
         }
     }
 }

@@ -49,6 +49,7 @@
             this.computerWonButton = new System.Windows.Forms.Button();
             this.playAgainButton = new System.Windows.Forms.Button();
             this.computerMoneyLabel = new System.Windows.Forms.Label();
+            this.newComputerPlayerButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.handCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.handCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.handCard3)).BeginInit();
@@ -277,12 +278,23 @@
             this.computerMoneyLabel.TabIndex = 21;
             this.computerMoneyLabel.Text = "Comuter Money: 0";
             // 
+            // newComputerPlayerButton
+            // 
+            this.newComputerPlayerButton.Location = new System.Drawing.Point(621, 68);
+            this.newComputerPlayerButton.Name = "newComputerPlayerButton";
+            this.newComputerPlayerButton.Size = new System.Drawing.Size(102, 52);
+            this.newComputerPlayerButton.TabIndex = 22;
+            this.newComputerPlayerButton.Text = "New Opponent";
+            this.newComputerPlayerButton.UseVisualStyleBackColor = true;
+            this.newComputerPlayerButton.Click += new System.EventHandler(this.newComputerPlayerButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Green;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.newComputerPlayerButton);
             this.Controls.Add(this.computerMoneyLabel);
             this.Controls.Add(this.playAgainButton);
             this.Controls.Add(this.computerWonButton);
@@ -345,6 +357,7 @@
         private System.Windows.Forms.Button computerWonButton;
         private System.Windows.Forms.Button playAgainButton;
         private System.Windows.Forms.Label computerMoneyLabel;
+        private System.Windows.Forms.Button newComputerPlayerButton;
     }
 }
 
