@@ -13,6 +13,22 @@ namespace GamblingProblem
             int size = 0;
         }
 
+        public HumanPlayer HumanPlayer
+        {
+            get => default(HumanPlayer);
+            set
+            {
+            }
+        }
+
+        public ComputerPlayer ComputerPlayer
+        {
+            get => default(ComputerPlayer);
+            set
+            {
+            }
+        }
+
         public void clearHand()
         {
             cards = new Card[5];

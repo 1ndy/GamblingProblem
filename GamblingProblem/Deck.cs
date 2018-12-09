@@ -27,6 +27,14 @@ namespace GamblingProblem
             unshuffledCards = 52;
         }
 
+        public Form1 Form1
+        {
+            get => default(Form1);
+            set
+            {
+            }
+        }
+
         public void shuffle()
         {
             Card[] r = new Card[52];

@@ -32,6 +32,21 @@ namespace GamblingProblem
             }
         }
 
+        public Deck Deck
+        {
+            get => default(Deck);
+            set
+            {
+            }
+        }
+
+        public Hand Hand
+        {
+            get => default(Hand);
+            set
+            {
+            }
+        }
 
         public Card(string s, string n)
         {
