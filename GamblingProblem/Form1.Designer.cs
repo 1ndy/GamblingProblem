@@ -50,6 +50,8 @@
             this.playAgainButton = new System.Windows.Forms.Button();
             this.computerMoneyLabel = new System.Windows.Forms.Label();
             this.newComputerPlayerButton = new System.Windows.Forms.Button();
+            this.matchButton = new System.Windows.Forms.Button();
+            this.foldButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.handCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.handCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.handCard3)).BeginInit();
@@ -288,12 +290,34 @@
             this.newComputerPlayerButton.UseVisualStyleBackColor = true;
             this.newComputerPlayerButton.Click += new System.EventHandler(this.newComputerPlayerButton_Click);
             // 
+            // matchButton
+            // 
+            this.matchButton.Location = new System.Drawing.Point(127, 414);
+            this.matchButton.Name = "matchButton";
+            this.matchButton.Size = new System.Drawing.Size(75, 33);
+            this.matchButton.TabIndex = 23;
+            this.matchButton.Text = "Match";
+            this.matchButton.UseVisualStyleBackColor = true;
+            this.matchButton.Click += new System.EventHandler(this.matchButton_Click);
+            // 
+            // foldButton
+            // 
+            this.foldButton.Location = new System.Drawing.Point(127, 372);
+            this.foldButton.Name = "foldButton";
+            this.foldButton.Size = new System.Drawing.Size(75, 36);
+            this.foldButton.TabIndex = 24;
+            this.foldButton.Text = "Fold";
+            this.foldButton.UseVisualStyleBackColor = true;
+            this.foldButton.Click += new System.EventHandler(this.foldButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Green;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.foldButton);
+            this.Controls.Add(this.matchButton);
             this.Controls.Add(this.newComputerPlayerButton);
             this.Controls.Add(this.computerMoneyLabel);
             this.Controls.Add(this.playAgainButton);
@@ -358,6 +382,8 @@
         private System.Windows.Forms.Button playAgainButton;
         private System.Windows.Forms.Label computerMoneyLabel;
         private System.Windows.Forms.Button newComputerPlayerButton;
+        private System.Windows.Forms.Button matchButton;
+        private System.Windows.Forms.Button foldButton;
     }
 }
 

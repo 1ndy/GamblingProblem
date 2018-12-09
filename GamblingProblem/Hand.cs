@@ -40,85 +40,110 @@ namespace GamblingProblem
             cards[i - 1] = c;
         }
 
-        private bool isOnePair(int[][] matrix)
+        public Card maxCard()
         {
-            int[] nums = flatten(matrix);
-            for (int i = 0; i < 13; i++)
+            Card m = cards[0];
+            for(int i = 0; i < 5; i++)
             {
-                if (nums[i] == 2)
-                    return true;
+                if(cards[i] > m)
+                {
+                    m = cards[i];
+                }
             }
-            return false;
+            return m;
         }
 
-        private bool isTwoPair(int[][] matrix)
+        private int isOnePair(int[][] matrix)
         {
-            bool firstPair = false;
             int[] nums = flatten(matrix);
             for (int i = 0; i < 13; i++)
             {
                 if (nums[i] == 2)
                 {
-                    firstPair = true;
+                    return 1 + i;
+                }
+            }
+            return 0;
+        }
+
+        private int isTwoPair(int[][] matrix)
+        {
+            int firstPair = 0;
+            int[] nums = flatten(matrix);
+            int i;
+            for (i = 0; i < 13; i++)
+            {
+                if (nums[i] == 2)
+                {
+                    firstPair = 1+i;
                     break;
                 }
             }
-            if(firstPair)
+            if(firstPair > 0)
             {
-                for (int i = 12; i >= 0; i--)
+                for (int j = 12; j > i; j--)
                 {
-                    if (nums[i] == 2)
-                        return true;
+                    if (nums[j] == 2)
+                        return firstPair + j;
                 }
             }
-            return false;
+            return 0;
         }
 
-        private bool isThreeOfKind(int[][] matrix)
+        private int isThreeOfKind(int[][] matrix)
         {
             int[] nums = flatten(matrix);
             for (int i = 0; i < 13; i++)
             {
                 if (nums[i] == 3)
-                    return true;
+                    return 1 + i;
             }
-            return false;
+            return 0;
         }
 
-        private bool isFourOfKind(int[][] matrix)
+        private int isFourOfKind(int[][] matrix)
         {
             int[] nums = flatten(matrix);
             for (int i = 0; i < 13; i++)
             {
                 if (nums[i] == 4)
-                    return true;
+                    return 1+i;
             }
-            return false;
+            return 0;
         }
 
-        private bool isFullHouse(int[][] matrix)
+        private int isFullHouse(int[][] matrix)
         {
-            return isOnePair(matrix) && isThreeOfKind(matrix);
+            if(isOnePair(matrix) > 0 && isThreeOfKind(matrix) > 0)
+            {
+                return 1 + isOnePair(matrix) + isThreeOfKind(matrix);
+            }
+            return 0;
         }
 
-        private bool isFlush(int[][] matrix)
+        private int isFlush(int[][] matrix)
         {
             //sum each column
             int sum = 0;
+            int maxJ = 0;
             for(int i = 0; i < 4; i++)
             {
                 sum = 0;
                 for (int j = 0; j < 13; j++)
                 {
                     sum += matrix[j][i];
+                    if(matrix[j][i] > 0)
+                    {
+                        maxJ = j;
+                    }
                 }
                 if (sum == 5)
-                    return true;
+                    return 1 + maxJ;
             }
-            return false;
+            return 0;
         }
 
-        private bool isStraight(int[][] matrix)
+        private int isStraight(int[][] matrix)
         {
             int[] nums = flatten(matrix);
             for(int i = 0; i < 9; i++)
@@ -129,26 +154,33 @@ namespace GamblingProblem
                     {
                         if(nums[i+4] == 1)
                         {
-                            return true;
+                            return 1 + i + 4;
                         }
                     }
                 }
             }
-            return false;
+            return 0;
         }
 
-        private bool isStraightFlush(int[][] matrix)
+        private int isStraightFlush(int[][] matrix)
         {
-            return isStraight(matrix) && isFlush(matrix);
-        }
-
-        private bool isRoyalFlush(int[][] matrix)
-        {
-            if (isStraightFlush(matrix))
+            if(isStraight(matrix) > 0  && isFlush(matrix) > 0)
             {
-                return flatten(matrix)[12] == 1;
+                return 1 + isStraight(matrix) + isFlush(matrix);
             }
-            return false;
+            return 0;
+        }
+
+        private int isRoyalFlush(int[][] matrix)
+        {
+            if (isStraightFlush(matrix) > 0)
+            {
+                if(flatten(matrix)[12] == 1)
+                {
+                    return 1 + isStraightFlush(matrix);
+                }
+            }
+            return 0;
         }
         //write a matrix flatteing function and use that to detect hands
 
@@ -177,22 +209,30 @@ namespace GamblingProblem
             {
                 handMatrix[cards[i].getRawNumber()][cards[i].getRawSuit()] = 1;
             }
-            if (isOnePair(handMatrix)) rank[0] = 1;
-            if (isTwoPair(handMatrix)) rank[1] = 1;
-            if (isThreeOfKind(handMatrix)) rank[2] = 1;
-            if (isStraight(handMatrix)) rank[3] = 1;
-            if (isFlush(handMatrix)) rank[4] = 1;
-            if (isFullHouse(handMatrix)) rank[5] = 1;
-            if (isFourOfKind(handMatrix)) rank[6] = 1;
-            if (isStraightFlush(handMatrix)) rank[7] = 1;
-            if (isRoyalFlush(handMatrix)) rank[8] = 1;
+            rank[0] = isOnePair(handMatrix);
+            rank[1] = isTwoPair(handMatrix);
+            rank[2] = isThreeOfKind(handMatrix);
+            rank[3] = isStraight(handMatrix);
+            rank[4] = isFlush(handMatrix);
+            rank[5] = isFullHouse(handMatrix);
+            rank[6] = isFourOfKind(handMatrix);
+            rank[7] = isStraightFlush(handMatrix);
+            rank[8] = isRoyalFlush(handMatrix);
 
             int rankNum = 0;
 
-            for(int i = 0; i < 9; i++)
+            int t = 8;
+            while(t > -1 && rank[t] == 0)
             {
-                if (rank[i] == 1)
-                    rankNum += (int)Math.Pow(2, i);
+                t--;
+            }
+            if(t >= 0)
+            {
+                rankNum = (int)Math.Pow(10.0, t+1) + rank[t];
+            }
+            else
+            {
+                rankNum = 1;
             }
             return rankNum;
         }
@@ -215,6 +255,16 @@ namespace GamblingProblem
         public static bool operator >=(Hand a, Hand b)
         {
             return a > b || a == b;
+        }
+
+        public static bool operator ==(Hand a, int b)
+        {
+            return a.rank() == b;
+        }
+
+        public static bool operator !=(Hand a, int b)
+        {
+            return a.rank() != b;
         }
     }
 }

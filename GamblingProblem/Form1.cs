@@ -20,6 +20,7 @@ namespace GamblingProblem
         PictureBox[] computerCardPictures = new PictureBox[5];
         int pool;
         Random rng;
+        bool isHumanTurn;
         public Form1()
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace GamblingProblem
             cp = new ComputerPlayer();
             rng = new Random();
             pool = 0;
+            isHumanTurn = true;
             hasExchanged = false;
             humanCardPictures[0] = handCard1;
             humanCardPictures[1] = handCard2;
@@ -72,6 +74,8 @@ namespace GamblingProblem
             playAgainButton.Visible = false;
             exchangeButton.Visible = true;
             newComputerPlayerButton.Visible = false;
+            matchButton.Visible = false;
+            foldButton.Visible = false;
             int i;
 
             for (i = 0; i < 5; i++)
@@ -182,14 +186,29 @@ namespace GamblingProblem
                         humanCardPictures[i].ImageLocation = c.getCardPath();
                     }
                 }
+                cp.playTurn(d);
                 hasExchanged = true;
                 exchangeButton.Visible = false;
-                betButton.Visible = true;
-                betTextbox.Visible = true;
-
-                //computer stuff
-                cp.playTurn(d);
-                statusLabel.Text = "Enter an amout to bet (0 to fold)";
+                if (isHumanTurn)
+                {
+                    betButton.Visible = true;
+                    betTextbox.Visible = true;
+                    statusLabel.Text = "Enter an amount to bet (0 to fold)";
+                }
+                else
+                {
+                    int n = cp.getMoney() * (int)(Math.Log10(cp.hand.rank()));
+                    n += rng.Next(0, n);
+                    n -= n / 2;
+                    if (n > hp.getMoney())
+                        n = hp.getMoney();
+                    pool += cp.removeMoney((int)(n));
+                    updateComputerMoney();
+                    statusLabel.Text = "Computer bet " + pool;
+                    matchButton.Visible = true;
+                    foldButton.Visible = true;
+                }
+                
             }
         }
 
@@ -218,14 +237,14 @@ namespace GamblingProblem
 
                 //computer stuff
                 int r;
-                if(pool * 2 > pool + cp.getMoney())
+                if(pool * 2 > pool + hp.getMoney())
                     r = rng.Next(1, 20);
-                else if (pool == pool + cp.getMoney())
+                else if (pool == pool + hp.getMoney())
                     r = rng.Next(1, 30);
                 else
                     r = rng.Next(1,10);
                 int p = rng.Next(1, 10);
-                if(p <= 4)
+                if (p <= 4 || cp.hand.rank() > 1000)
                 {
                     r /= 3;
                 }
@@ -247,6 +266,7 @@ namespace GamblingProblem
                     playAgainButton.Visible = true;
                 }
             }
+            isHumanTurn = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -260,11 +280,11 @@ namespace GamblingProblem
             callButton.Visible = false;
             //humanWonButton.Visible = true;
             //computerWonButton.Visible = true;
-            //statusLabel.Text = "Human: " + hp.hand.rank() + " Computer: " + cp.hand.rank();
+            statusLabel.Text = "Human: " + hp.hand.rank() + " Computer: " + cp.hand.rank();
             if(cp.hand < hp.hand)
             {
                 hp.addMoney(pool);
-                statusLabel.Text = "You Won! Gained " + pool;
+                //statusLabel.Text = "You Won! Gained " + pool;
                 pool = 0;
                 updatePlayerMoney();
                 humanWonButton.Visible = false;
@@ -274,7 +294,7 @@ namespace GamblingProblem
             else if(cp.hand > hp.hand)
             {
                 cp.addMoney(pool);
-                statusLabel.Text = "Computer won";
+                //statusLabel.Text = "Computer won";
                 pool = 0;
                 updateComputerMoney();
                 humanWonButton.Visible = false;
@@ -283,11 +303,28 @@ namespace GamblingProblem
             }
             else
             {
-                statusLabel.Text = "Tie";
-                pool /= 2;
-                hp.addMoney(pool);
-                cp.addMoney(pool);
-                pool = 0;
+                if (cp.hand == 0 && hp.hand.maxCard() > cp.hand.maxCard())
+                {
+                    hp.addMoney(pool);
+                    //statusLabel.Text = "You Won! Gained " + pool;
+                    pool = 0;
+                    updatePlayerMoney();
+                }
+                else if (hp.hand.maxCard() < cp.hand.maxCard())
+                {
+                    cp.addMoney(pool);
+                    //statusLabel.Text = "Computer won";
+                    pool = 0;
+                    updateComputerMoney();
+                }
+                else
+                {
+                    //statusLabel.Text = "Tie";
+                    pool /= 2;
+                    hp.addMoney(pool);
+                    cp.addMoney(pool);
+                    pool = 0;
+                }
                 playAgainButton.Visible = true;
             }
         }
@@ -324,7 +361,8 @@ namespace GamblingProblem
             {
                 statusLabel.Text = "A player has lost. Game over";
                 playAgainButton.Visible = false;
-                newComputerPlayerButton.Visible = true;
+                if(hp.getMoney() > 0)
+                    newComputerPlayerButton.Visible = true;
             }
         }
 
@@ -332,6 +370,27 @@ namespace GamblingProblem
         {
             cp = new ComputerPlayer();
             playHand();
+        }
+
+        private void matchButton_Click(object sender, EventArgs e)
+        {
+            pool += hp.removeMoney(pool);
+            updatePlayerMoney();
+            statusLabel.Text = "You matched";
+            foldButton.Visible = false;
+            matchButton.Visible = false;
+            callButton.Visible = true;
+            isHumanTurn = true;
+        }
+
+        private void foldButton_Click(object sender, EventArgs e)
+        {
+            matchButton.Visible = false;
+            foldButton.Visible = false;
+            cp.addMoney(pool);
+            pool = 0;
+            updateComputerMoney();
+            playAgainButton.Visible = true;
         }
     }
 }

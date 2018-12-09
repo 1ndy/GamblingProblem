@@ -45,7 +45,8 @@ namespace GamblingProblem
                         maxIndex = i;
                     }
                 }
-                cardMatch[maxIndex] = 1;
+                if (max > new Card("spade", "10"))
+                    cardMatch[maxIndex] = 1;
             }
 
             for (int i = 0; i < 5; i++)
