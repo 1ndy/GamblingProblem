@@ -81,7 +81,7 @@ namespace GamblingProblem
                 hp.hand.addCard(c);
                 cp.hand.addCard(b);
                 humanCardPictures[i].ImageLocation = c.getCardPath();
-                computerCardPictures[i].ImageLocation = b.getCardPath();//"..\\..\\cards\\gray_back.png";
+                computerCardPictures[i].ImageLocation = "..\\..\\cards\\gray_back.png";
             }
             statusLabel.Text = "Click on cards to exchange";
         }
@@ -189,7 +189,6 @@ namespace GamblingProblem
 
                 //computer stuff
                 cp.playTurn(d);
-                showComputerCards();
                 statusLabel.Text = "Enter an amout to bet (0 to fold)";
             }
         }
@@ -261,19 +260,21 @@ namespace GamblingProblem
             callButton.Visible = false;
             //humanWonButton.Visible = true;
             //computerWonButton.Visible = true;
-            statusLabel.Text = "Human: " + hp.hand.rank() + " Computer: " + cp.hand.rank();
-            if(cp.hand > hp.hand)
+            //statusLabel.Text = "Human: " + hp.hand.rank() + " Computer: " + cp.hand.rank();
+            if(cp.hand < hp.hand)
             {
                 hp.addMoney(pool);
+                statusLabel.Text = "You Won! Gained " + pool;
                 pool = 0;
                 updatePlayerMoney();
                 humanWonButton.Visible = false;
                 computerWonButton.Visible = false;
                 playAgainButton.Visible = true;
             }
-            else if(cp.hand < hp.hand)
+            else if(cp.hand > hp.hand)
             {
                 cp.addMoney(pool);
+                statusLabel.Text = "Computer won";
                 pool = 0;
                 updateComputerMoney();
                 humanWonButton.Visible = false;
@@ -282,7 +283,12 @@ namespace GamblingProblem
             }
             else
             {
-                //statusLabel.Text = "Tie";
+                statusLabel.Text = "Tie";
+                pool /= 2;
+                hp.addMoney(pool);
+                cp.addMoney(pool);
+                pool = 0;
+                playAgainButton.Visible = true;
             }
         }
 
