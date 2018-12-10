@@ -224,7 +224,7 @@ namespace GamblingProblem
                 betButton.Visible = false;
                 betTextbox.Visible = false;
             }
-            else if(amount > hp.getMoney() || amount > cp.getMoney())
+            else if(amount != 0 && (amount > hp.getMoney() || amount > cp.getMoney()))
             {
                 statusLabel.Text = "One player can not bet that much.";
             }
@@ -284,7 +284,7 @@ namespace GamblingProblem
             if(cp.hand < hp.hand)
             {
                 hp.addMoney(pool);
-                //statusLabel.Text = "You Won! Gained " + pool;
+                statusLabel.Text = "You Won! Gained " + pool;
                 pool = 0;
                 updatePlayerMoney();
                 humanWonButton.Visible = false;
@@ -294,7 +294,7 @@ namespace GamblingProblem
             else if(cp.hand > hp.hand)
             {
                 cp.addMoney(pool);
-                //statusLabel.Text = "Computer won";
+                statusLabel.Text = "Computer won";
                 pool = 0;
                 updateComputerMoney();
                 humanWonButton.Visible = false;
@@ -306,14 +306,14 @@ namespace GamblingProblem
                 if (cp.hand == 0 && hp.hand.maxCard() > cp.hand.maxCard())
                 {
                     hp.addMoney(pool);
-                    //statusLabel.Text = "You Won! Gained " + pool;
+                    statusLabel.Text = "You Won! Gained " + pool;
                     pool = 0;
                     updatePlayerMoney();
                 }
                 else if (hp.hand.maxCard() < cp.hand.maxCard())
                 {
                     cp.addMoney(pool);
-                    //statusLabel.Text = "Computer won";
+                    statusLabel.Text = "Computer won";
                     pool = 0;
                     updateComputerMoney();
                 }
@@ -391,6 +391,7 @@ namespace GamblingProblem
             pool = 0;
             updateComputerMoney();
             playAgainButton.Visible = true;
+            isHumanTurn = true;
         }
     }
 }

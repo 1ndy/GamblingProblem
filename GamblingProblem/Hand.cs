@@ -76,7 +76,7 @@ namespace GamblingProblem
             {
                 if (nums[i] == 2)
                 {
-                    return 1 + i;
+                    return 1 + (i*7);
                 }
             }
             return 0;
@@ -91,7 +91,7 @@ namespace GamblingProblem
             {
                 if (nums[i] == 2)
                 {
-                    firstPair = 1+i;
+                    firstPair = 1+(i*7);
                     break;
                 }
             }
@@ -100,7 +100,7 @@ namespace GamblingProblem
                 for (int j = 12; j > i; j--)
                 {
                     if (nums[j] == 2)
-                        return firstPair + j;
+                        return firstPair + (j*7);
                 }
             }
             return 0;
@@ -112,7 +112,7 @@ namespace GamblingProblem
             for (int i = 0; i < 13; i++)
             {
                 if (nums[i] == 3)
-                    return 1 + i;
+                    return 1 + (i*7);
             }
             return 0;
         }
@@ -123,7 +123,7 @@ namespace GamblingProblem
             for (int i = 0; i < 13; i++)
             {
                 if (nums[i] == 4)
-                    return 1+i;
+                    return 1+(i*7);
             }
             return 0;
         }
@@ -132,7 +132,7 @@ namespace GamblingProblem
         {
             if(isOnePair(matrix) > 0 && isThreeOfKind(matrix) > 0)
             {
-                return 1 + isOnePair(matrix) + isThreeOfKind(matrix);
+                return 1 + ((isOnePair(matrix) + (isThreeOfKind(matrix))*7));
             }
             return 0;
         }
@@ -154,7 +154,7 @@ namespace GamblingProblem
                     }
                 }
                 if (sum == 5)
-                    return 1 + maxJ;
+                    return 1 + (maxJ*7);
             }
             return 0;
         }
@@ -170,7 +170,7 @@ namespace GamblingProblem
                     {
                         if(nums[i+4] == 1)
                         {
-                            return 1 + i + 4;
+                            return 1 + ((i + 4)*7);
                         }
                     }
                 }
@@ -182,7 +182,7 @@ namespace GamblingProblem
         {
             if(isStraight(matrix) > 0  && isFlush(matrix) > 0)
             {
-                return 1 + isStraight(matrix) + isFlush(matrix);
+                return 1 + ((isStraight(matrix) + isFlush(matrix)) * 7);
             }
             return 0;
         }
@@ -193,7 +193,7 @@ namespace GamblingProblem
             {
                 if(flatten(matrix)[12] == 1)
                 {
-                    return 1 + isStraightFlush(matrix);
+                    return 1 + (isStraightFlush(matrix)*7);
                 }
             }
             return 0;
